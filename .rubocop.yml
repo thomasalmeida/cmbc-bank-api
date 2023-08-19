@@ -1,0 +1,82 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  DisplayCopNames: true
+  Exclude:
+    - "db/**/*"
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+
+Style/AsciiComments:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  AllowedMethods:
+    - "describe"
+    - "context"
+    - "feature"
+    - "scenario"
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/ModuleLength:
+  Max: 100
+
+Metrics/ParameterLists:
+  Max: 5
+
+# Hash:
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+# Comentários:
+Style/CommentAnnotation:
+  Keywords:
+    - TODO
+    - FIXME
+    - OPTIMIZE
+    - HACK
+    - REVIEW
+
+# Documentação:
+Style/Documentation:
+  Enabled: false
+
+# Rails:
+Rails/TimeZone:
+  EnforcedStyle: flexible
+
+Rails/SaveBang:
+  Include:
+    - "app/models/**/*.rb"
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+
+# Outras configurações comuns:
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*"
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%i": "[]"
+    "%w": "[]"
+    "%W": "[]"
+    "%x": "()"
+# Desative qualquer regra específica, se necessário:
+# Style/SomeSpecificRule:
+#   Enabled: false
