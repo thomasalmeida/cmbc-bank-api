@@ -1,0 +1,26 @@
+version: '3.5'
+services:
+  cmbc-bank-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -p 3000 -b '0.0.0.0'"
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../.env
+    depends_on:
+      - cmbc-bank-db
+    volumes:
+      - ..:/app
+  cmbc-bank-db:
+    image: postgres:latest
+    env_file:
+      - ../.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
