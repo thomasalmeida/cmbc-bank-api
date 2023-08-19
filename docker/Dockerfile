@@ -14,7 +14,6 @@ RUN apk update && apk upgrade && \
 ENV RAILS_ENV=development \
   RAILS_LOG_TO_STDOUT=true
 
-# Adjust these lines
 COPY Gemfile Gemfile.lock /app/
 RUN bundle install
 
