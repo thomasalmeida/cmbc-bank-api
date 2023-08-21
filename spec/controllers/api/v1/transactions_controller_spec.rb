@@ -9,6 +9,35 @@ RSpec.describe Api::V1::TransactionsController, type: :controller do
     allow(controller).to receive(:current_account).and_return(account)
   end
 
+  describe 'GET #index' do
+    context 'with valid date range' do
+      it 'returns transactions' do
+        get :index, params: { start_date: 10.days.ago.to_date, end_date: Time.zone.today }
+
+        expect(response.parsed_body['transactions']).to be_present
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'with invalid date range' do
+      it 'returns empty array' do
+        get :index, params: { start_date: nil, end_date: '' }
+
+        expect(response.parsed_body['transactions']).to be_empty
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'without date range' do
+      it 'returns all transactions' do
+        get :index, params: { start_date: nil, end_date: nil }
+
+        expect(response.parsed_body['transactions']).to be_empty
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
   describe 'POST #create' do
     let(:receiver) { FactoryBot.create(:account) }
 
