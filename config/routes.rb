@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       end
 
       post 'auth/login', to: 'authentication#login'
+
+      resources :transactions, only: %i[create] do
+      end
     end
   end
 
