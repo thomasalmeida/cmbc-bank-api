@@ -58,4 +58,36 @@ RSpec.describe Api::V1::TransactionsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #reverse' do
+    let(:transaction) { FactoryBot.create(:transaction) }
+
+    context 'with valid transaction id' do
+      it 'reverses the transaction' do
+        post :reverse, params: { id: transaction.id }
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'with invalid transaction id' do
+      it 'returns an error' do
+        post :reverse, params: { id: 'wrong-id' }
+
+        expect(response.parsed_body['error']).to be_present
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'with already reversed transaction' do
+      let(:already_reversed_transaction) { create(:transaction, reversed_at: Time.zone.now) }
+
+      it 'returns an error' do
+        post :reverse, params: { id: already_reversed_transaction.id }
+
+        expect(response.parsed_body['error']).to be_present
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end
