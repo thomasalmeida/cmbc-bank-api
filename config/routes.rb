@@ -8,4 +8,7 @@ Rails.application.routes.draw do
       post 'auth/login', to: 'authentication#login'
     end
   end
+
+  root to: 'application#not_found'
+  match '*path', to: 'application#not_found', via: :all
 end
