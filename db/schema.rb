@@ -24,4 +24,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_010524) do
     t.datetime "updated_at", null: false
     t.index ["holder_cpf"], name: "index_accounts_on_holder_cpf", unique: true
   end
+
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "debit_account_id", null: false
+    t.uuid "credit_account_id", null: false
+    t.integer "amount_in_cents", null: false
+    t.datetime "processed_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "reversed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["credit_account_id"], name: "index_transactions_on_credit_account_id"
+    t.index ["debit_account_id"], name: "index_transactions_on_debit_account_id"
+  end
+
+  add_foreign_key "transactions", "accounts", column: "credit_account_id"
+  add_foreign_key "transactions", "accounts", column: "debit_account_id"
 end
