@@ -1,6 +1,8 @@
 module Api
   module V1
     class AccountsController < ApplicationController
+      skip_before_action :authenticate_request, only: [:create]
+
       def create
         result = Accounts::CreateAccount.new(
           name: account_params[:holder_first_name],
