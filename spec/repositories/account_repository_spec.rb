@@ -25,4 +25,12 @@ RSpec.describe AccountRepository do
     end
   end
 
+  describe '.update_balance' do
+    let!(:account) { FactoryBot.create(:account, balance_in_cents: 100) }
+
+    it 'updates the account balance' do
+      described_class.update_balance(account:, amount_in_cents: 50)
+      expect(account.reload.balance_in_cents).to eq(150)
+    end
+  end
 end
