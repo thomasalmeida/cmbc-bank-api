@@ -1,6 +1,7 @@
 version: '3.5'
 services:
   cmbc-bank-api:
+    container_name: cmbc-bank-api
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -15,8 +16,10 @@ services:
       - cmbc-bank-db
     volumes:
       - ..:/app
+
   cmbc-bank-db:
     image: postgres:latest
+    container_name: cmbc-bank-db
     env_file:
       - ../.env
     volumes:
