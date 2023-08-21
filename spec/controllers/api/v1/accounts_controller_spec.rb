@@ -24,4 +24,19 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #balance' do
+    let(:account) { FactoryBot.create(:account) }
+
+    before do
+      allow(controller).to receive(:authenticate_request).and_return(true)
+      allow(controller).to receive(:current_account).and_return(account)
+    end
+
+    it 'fetches balance for the authenticated account' do
+      get :balance
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['balance_in_cents']).to eq(account.balance_in_cents)
+    end
+  end
 end
