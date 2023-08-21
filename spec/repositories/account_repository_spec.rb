@@ -17,4 +17,12 @@ RSpec.describe AccountRepository do
     end
   end
 
+  describe '.find_by_id' do
+    let!(:account) { FactoryBot.create(:account) }
+
+    it 'returns an account with the matching ID' do
+      expect(described_class.find_by_id(account.id)).to eq(account)
+    end
+  end
+
 end

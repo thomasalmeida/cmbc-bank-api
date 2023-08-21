@@ -20,6 +20,16 @@ module Api
         end
       end
 
+      def balance
+        result = Accounts::FetchAccountBalance.new(account_id: current_account.id).call
+
+        if result[:success]
+          render json: { balance_in_cents: result[:balance_in_cents] }
+        else
+          render json: { error: result[:error] }, status: :not_found
+        end
+      end
+
       private
 
       def account_params
