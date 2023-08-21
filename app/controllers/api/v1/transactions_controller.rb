@@ -29,6 +29,16 @@ module Api
         end
       end
 
+      def reverse
+        result = Transactions::ReverseTransaction.new(params[:id]).call
+
+        if result[:success]
+          render json: { message: 'Transaction reversed successfully' }, status: :ok
+        else
+          render json: { error: result[:error] }, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def index_params

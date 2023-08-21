@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post 'auth/login', to: 'authentication#login'
 
       resources :transactions, only: %i[create index] do
+        post 'reverse', on: :member
       end
     end
   end
