@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :accounts, only: [:create] do
       end
 
+      post 'auth/login', to: 'authentication#login'
     end
   end
 end

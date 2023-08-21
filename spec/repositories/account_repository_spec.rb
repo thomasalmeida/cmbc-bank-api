@@ -9,4 +9,12 @@ RSpec.describe AccountRepository do
     end
   end
 
+  describe '.find_by_cpf' do
+    let!(:account) { FactoryBot.create(:account) }
+
+    it 'returns an account with the matching CPF' do
+      expect(described_class.find_by_cpf(account.holder_cpf)).to eq(account)
+    end
+  end
+
 end
