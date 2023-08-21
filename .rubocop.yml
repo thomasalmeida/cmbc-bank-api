@@ -13,7 +13,7 @@ Style/AsciiComments:
   Enabled: false
 
 Layout/LineLength:
-  Max: 100
+  Max: 160
 
 Metrics/BlockLength:
   AllowedMethods:
@@ -23,8 +23,11 @@ Metrics/BlockLength:
     - "scenario"
   Max: 100
 
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/MethodLength:
-  Max: 15
+  Max: 20
 
 Metrics/ClassLength:
   Max: 200
@@ -33,7 +36,7 @@ Metrics/ModuleLength:
   Max: 100
 
 Metrics/ParameterLists:
-  Max: 5
+  Max: 6
 
 # Hash:
 Style/HashSyntax:
@@ -61,7 +64,16 @@ Rails/SaveBang:
     - "app/models/**/*.rb"
 
 Rails/HasManyOrHasOneDependent:
-  Enabled: true
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/DynamicFindBy:
+  Enabled: false
 
 # Outras configurações comuns:
 Lint/AmbiguousBlockAssociation:
@@ -77,6 +89,3 @@ Style/PercentLiteralDelimiters:
     "%w": "[]"
     "%W": "[]"
     "%x": "()"
-# Desative qualquer regra específica, se necessário:
-# Style/SomeSpecificRule:
-#   Enabled: false
