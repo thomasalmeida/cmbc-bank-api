@@ -18,6 +18,23 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '.find_by_id' do
+    let!(:transaction) { FactoryBot.create(:transaction) }
+
+    it 'returns a transaction with the matching ID' do
+      expect(described_class.find_by_id(transaction.id)).to eq(transaction)
+    end
+  end
+
+  describe '.mark_as_reversed' do
+    let!(:transaction) { FactoryBot.create(:transaction) }
+
+    it 'marks a transaction as reversed' do
+      described_class.mark_as_reversed(transaction)
+      expect(transaction.reload.reversed_at).not_to be_nil
+    end
+  end
+
   describe '.find_by_date_range' do
     let(:account) { FactoryBot.create(:account) }
     let(:start_date) { Time.zone.today.beginning_of_month }
